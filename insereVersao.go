@@ -21,7 +21,7 @@ import (
 )
 
 const (
-	repoURL = "https://github.com/LuizWerneck/Projeto-Inserir_Versao/releases/download/Inserir/InsereVersao.exe"
+	repoURL = "https://github.com/LuizWerneck/versao/releases/download/Inserir/InsereVersao.exe"
 	localInsereVersao = "InsereVersao.exe"
 	tempFile = "temp_InsereVersao.exe"
 	backupFilePath = "InsereVersao_old.exe"
@@ -45,7 +45,6 @@ func downloadNovaVersao(url, filePath string) error {
 }
 
 func updateNovaVersao() {
-	//fmt.Println("Verificando nova versão")
 	os.Remove(backupFilePath)
 	err := downloadNovaVersao(repoURL, tempFile)
 	if err != nil {
@@ -77,7 +76,7 @@ func updateNovaVersao() {
 	
 	fmt.Println("Nova versão baixada, reinicie o InsereVersao..")
 	os.Remove(backupFilePath)
-	time.Sleep(2 * time.Second) // Pequeno delay antes de reiniciar
+	time.Sleep(2 * time.Second)
 	os.Exit(0)
 	
 }
@@ -242,18 +241,14 @@ func GetFileVersion(filePath string) (string, error) {
 
 func main() {
 	updateNovaVersao()
-
+	
 	nomeCriptografado, caminhoCriptografado, err := lerArquivoIni("caminhobd.ini")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-
 	nome := crypt("D", nomeCriptografado)
 	caminho := crypt("D", caminhoCriptografado)
-
-
-
 	// Mensagem inicial
 	fmt.Println("Programa de inserção de aplicativos no banco de dados Firebird")
 	time.Sleep(2 * time.Second)
