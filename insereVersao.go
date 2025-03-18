@@ -16,8 +16,7 @@ import (
 	"strconv"
 	"syscall"
 	"unsafe"
-	"os/exec"
-
+	
 	_ "github.com/waldurbas/firebirdsql"
 )
 
@@ -76,11 +75,11 @@ func updateNovaVersao() {
 		return
 	}
 	
-	fmt.Println("Nova versão baixada, reinicie o programa.")
+	fmt.Println("Nova versão baixada, reinicie o InsereVersao..")
+	os.Remove(backupFilePath)
 	time.Sleep(2 * time.Second) // Pequeno delay antes de reiniciar
-	exec.Command(localInsereVersao).Start()
-	time.Sleep(2 * time.Second)
 	os.Exit(0)
+	
 }
 
 func crypt(action string, src string) string {
