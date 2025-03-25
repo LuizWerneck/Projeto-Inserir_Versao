@@ -325,11 +325,11 @@ func verificaTabela(db *sql.DB) error {
 		fmt.Println("Tabela ARQUIVOS_FARMAX não encontrada. Criando a tabela...")
 		createTable := `
 			CREATE TABLE ARQUIVOS_FARMAX (
-				ID        INTEGER NOT NULL,
-				NOME      VARCHAR(255),
-				HASH_APP  VARCHAR(1000),
-				PROGRAMA  BLOB SUB_TYPE BINARY SEGMENT SIZE 80,
-				VERSAO	VARCHAR(20)
+    		ID        INTEGER NOT NULL,
+		    NOME      VARCHAR(255) NOT NULL,
+    		HASH_APP  VARCHAR(1000) NOT NULL,
+    		PROGRAMA  BLOB SUB_TYPE BINARY SEGMENT SIZE 80 NOT NULL,
+    		VERSAO    VARCHAR(100)
 			)
 		`
 		_, err = db.Exec(createTable)
@@ -509,8 +509,6 @@ func calcHash(filePath string) (string, error) {
 
 	return hex.EncodeToString(hasher.Sum(nil)), nil
 }
-
-
 
 // obter o nome do arquivo a partir do caminho
 func getFileName(filePath string) string {
