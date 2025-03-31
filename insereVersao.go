@@ -1,7 +1,7 @@
 package main
 
 import (
-	"net/http"
+	//"net/http"
 	"bufio"
 	"crypto/sha256"
 	"database/sql"
@@ -20,66 +20,12 @@ import (
 	_ "github.com/waldurbas/firebirdsql"
 )
 
-const (
+/*const (
 	repoURL = "https://github.com/LuizWerneck/versao/releases/download/Inserir/InsereVersao.exe"
 	localInsereVersao = "InsereVersao.exe"
 	tempFile = "temp_InsereVersao.exe"
 	backupFilePath = "InsereVersao_old.exe"
-)
-
-func downloadNovaVersao(url, filePath string) error {
-	resp, err := http.Get(url)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
-
-	out, err := os.Create(filePath)
-	if err != nil {
-		return err
-	}
-	defer out.Close()
-
-	_, err = io.Copy(out, resp.Body)
-	return err
-}
-
-func updateNovaVersao() {
-	os.Remove(backupFilePath)
-	err := downloadNovaVersao(repoURL, tempFile)
-	if err != nil {
-		fmt.Println("Erro ao baixar:", err)
-		return
-	}
-
-	// Calcula hash para verificar integridade
-	oldHash, _ := calcHash(localInsereVersao)
-	newHash, _ := calcHash(tempFile)
-	if oldHash == newHash {
-		//fmt.Println("Sem nova versão disponível")
-		os.Remove(tempFile)
-		return
-	}
-
-	os.Remove(backupFilePath)
-	if err := os.Rename(localInsereVersao, backupFilePath); err != nil {
-		fmt.Println("Erro ao renomear o executável antigo:", err)
-		return
-	}
-
-	// Substitui o binário antigo
-	err = os.Rename(tempFile, localInsereVersao)
-	if err != nil {
-		fmt.Println("Erro ao substituir o binário:", err)
-		return
-	}
-	
-	fmt.Println("Nova versão baixada, reinicie o InsereVersao..")
-	os.Remove(backupFilePath)
-	time.Sleep(2 * time.Second)
-	os.Exit(0)
-	
-}
+)*/
 
 func crypt(action string, src string) string {
 	key := "YUQL23KL23DF90WI5E1JAS467NMCXXL6JAOAUWWMCL0AOMM4A4VZYW9KHJUI2347EJHJKDF3424SKLK3LAKDJSL9RTIKJ"
@@ -240,7 +186,7 @@ func GetFileVersion(filePath string) (string, error) {
 
 
 func main() {
-	updateNovaVersao()
+	//updateNovaVersao()
 	
 	nomeCriptografado, caminhoCriptografado, err := lerArquivoIni("caminhobd.ini")
 	if err != nil {
@@ -563,3 +509,57 @@ func copyNFE(fileName string) error {
    
     return nil
 }
+
+/*func downloadNovaVersao(url, filePath string) error {
+	resp, err := http.Get(url)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	out, err := os.Create(filePath)
+	if err != nil {
+		return err
+	}
+	defer out.Close()
+
+	_, err = io.Copy(out, resp.Body)
+	return err
+}
+
+/*func updateNovaVersao() {
+	os.Remove(backupFilePath)
+	err := downloadNovaVersao(repoURL, tempFile)
+	if err != nil {
+		fmt.Println("Erro ao baixar:", err)
+		return
+	}
+
+	// Calcula hash para verificar integridade
+	oldHash, _ := calcHash(localInsereVersao)
+	newHash, _ := calcHash(tempFile)
+	if oldHash == newHash {
+		//fmt.Println("Sem nova versão disponível")
+		os.Remove(tempFile)
+		return
+	}
+
+	os.Remove(backupFilePath)
+	if err := os.Rename(localInsereVersao, backupFilePath); err != nil {
+		fmt.Println("Erro ao renomear o executável antigo:", err)
+		return
+	}
+
+	// Substitui o binário antigo
+	err = os.Rename(tempFile, localInsereVersao)
+	if err != nil {
+		fmt.Println("Erro ao substituir o binário:", err)
+		return
+	}
+	
+	fmt.Println("Nova versão baixada, reinicie o InsereVersao..")
+	os.Remove(backupFilePath)
+	time.Sleep(2 * time.Second)
+	os.Exit(0)
+	
+}*/
